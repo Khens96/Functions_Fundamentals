@@ -15,7 +15,9 @@ def greet_user():
     - Confusing print with return
     - Inconsistent indentation
     """
-    pass  # TODO: Implement this function
+             # TODO: Implement this function
+
+    print("Hello, World!")
   
 
 # Exercise 2: Function Parameters and Type Hints
@@ -38,7 +40,11 @@ def personalized_greeting(name):
         >>> personalized_greeting(123)
         Raises TypeError
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    name = 'Alice'
+    greeting = f"Hello, {name}!"
+    print(greeting)
+    return greeting
   
 
 # Exercise 3: Multiple Parameters and Default Values
@@ -62,8 +68,21 @@ def calculate_rectangle_area(length, width):
     - Not validating parameter types
     - Using mutable default values
     """
-    pass  # TODO: Implement this function
-  
+      # TODO: Implement this function
+
+    if length < 0:
+        raise TypeError("Length cannot be negative")
+    if width is None:
+        width = length
+
+    if width < 0:
+        raise TypeError("Width must not be negative")
+    
+    try:
+        return float(length) * float(width)
+    except (ValueError, TypeError):
+        raise TypeError("Length and width must be in numbers")
+
 
 # Exercise 4: Global vs Local Scope
 score = 0  # Global variable
@@ -83,7 +102,10 @@ def update_score(points):
     - Shadowing global variables
     - Overusing global variables
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    
+    score += points
+    return score
   
 
 # Exercise 5: Multiple Return Values and Tuple Unpacking
@@ -102,8 +124,14 @@ def get_circle_properties(radius):
         >>> print(f"Area: {area:.2f}, Circumference: {circumference:.2f}")
         Area: 3.14, Circumference: 6.28
     """
-    pass  # TODO: Implement this function
-  
+      # TODO: Implement this function
+
+    if radius < 0:
+        raise ValueError("Radius must not be negative")
+    area = math.pi * radius ** 2
+    circumference = 2 * math.pi * radius
+
+    return area, circumference
 
 # Exercise 6: Input Validation and Error Handling
 def calculate_bmi(weight, height):
@@ -121,7 +149,16 @@ def calculate_bmi(weight, height):
         ValueError: If weight or height is negative or zero
         TypeError: If inputs are not numbers
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+
+    if weight <= 0 or height <= 0:
+        raise ValueError("Weight and height must be positive values")
+
+    try:
+        bmi = round(weight / height**2, 1)
+        return bmi
+    except (TypeError, ZeroDivisionError):
+        raise TypeError("Weight and height must be numbers")
   
 
 # Exercise 7: Recursion with Base Case and Error Handling
@@ -144,7 +181,13 @@ def factorial(n):
     - Not handling negative numbers
     - Not considering stack overflow
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    if n < 0:
+        raise ValueError("Factorial not defined for negative numbers")
+    elif n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
   
 
 # Exercise 8: Complex Return Types and Dictionary Handling
@@ -171,7 +214,18 @@ def analyze_numbers(numbers):
         >>> print(f"Average: {stats['average']}")
         Average: 3.0
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+    if not numbers:
+        raise ValueError("List must not be empty")
+    for num in numbers:
+        if not isinstance(num, (int, float)):
+            raise TypeError("elements must be numbers")
+    return {
+        "sum": sum(numbers),
+        "average": sum(numbers) / len(numbers),
+        "maximum": max(numbers),
+        "minimum": min(numbers)
+    }
   
 
 # Exercise 9: Default Parameters and Type Checking
@@ -191,8 +245,18 @@ def create_profile(name, age, occupation="Student"):
         TypeError: If name is not str or age is not int
         ValueError: If age is negative
     """
-    pass  # TODO: Implement this function
-  
+     # TODO: Implement this function
+    try:
+        age = int(age)
+        if age < 0:
+            raise ValueError("Age must not be negative")
+    except (TypeError, ValueError):
+        raise TypeError("Age must not be a negative integer")
+    return {
+        "name": str(name),
+        "age": age,
+        "occupation": occupation
+    }
 
 # Exercise 10: Complex Logic and Multiple Validation
 def validate_password(password):
@@ -233,7 +297,33 @@ def validate_password(password):
     - Not checking all criteria independently
     - Forgetting to validate input type before processing
     """
-    pass  # TODO: Implement this function
+    # TODO: Implement this function
+
+    if len(password) < 8:
+        return False
+    
+    has_uppercase = False
+    has_lowercase = False
+    has_digit = False
+    has_special = False    
+    special_char = "*", "@", "_", "/", "!", "#"
+
+    for char in password:
+        if char.isupper():
+            has_uppercase = True
+        elif char.islower():
+            has_lowercase = True
+        elif char.isdigit():
+            has_digit = True
+        elif char in special_char:
+            has_special = True
+
+        if has_uppercase and has_lowercase and has_digit and has_special:
+            return True
+        
+    return has_uppercase and has_lowercase and has_digit and has_special
+
+        
 
 
 if __name__ == "__main__":
