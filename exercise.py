@@ -41,10 +41,11 @@ def personalized_greeting(name):
         Raises TypeError
     """
     # TODO: Implement this function
-    name = 'Alice'
-    greeting = f"Hello, {name}!"
-    print(greeting)
-    return greeting
+    
+    if type(name) != str:
+        raise TypeError("name must be a string.")
+
+    return f"Hello, {name}!"
   
 
 # Exercise 3: Multiple Parameters and Default Values
@@ -103,7 +104,10 @@ def update_score(points):
     - Overusing global variables
     """
     # TODO: Implement this function
-    
+
+    global score
+    if type(points) != int:
+        raise TypeError("points must be an integer.")
     score += points
     return score
   
@@ -249,9 +253,9 @@ def create_profile(name, age, occupation="Student"):
     try:
         age = int(age)
         if age < 0:
-            raise ValueError("Age must not be negative")
+            raise ValueError("Age cannot be negative")
     except (TypeError, ValueError):
-        raise TypeError("Age must not be a negative integer")
+        raise TypeError("Age must be a non-negative integer")
     return {
         "name": str(name),
         "age": age,
@@ -321,7 +325,8 @@ def validate_password(password):
         if has_uppercase and has_lowercase and has_digit and has_special:
             return True
         
-    return has_uppercase and has_lowercase and has_digit and has_special
+    return "password is valid"
+print(validate_password('Abc1234'))
 
         
 
