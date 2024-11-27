@@ -15,7 +15,7 @@ def greet_user():
     - Confusing print with return
     - Inconsistent indentation
     """
-             # TODO: Implement this function
+     # TODO: Implement this function
 
     print("Hello, World!")
   
@@ -72,17 +72,18 @@ def calculate_rectangle_area(length, width):
       # TODO: Implement this function
 
     if length < 0:
-        raise TypeError("Length cannot be negative")
+        raise ValueError("Length cannot be negative")
     if width is None:
         width = length
 
     if width < 0:
-        raise TypeError("Width must not be negative")
+        raise ValueError("Width cannot be negative")
     
     try:
         return float(length) * float(width)
     except (ValueError, TypeError):
         raise TypeError("Length and width must be in numbers")
+    return (length * width)
 
 
 # Exercise 4: Global vs Local Scope
@@ -113,6 +114,7 @@ def update_score(points):
   
 
 # Exercise 5: Multiple Return Values and Tuple Unpacking
+
 def get_circle_properties(radius):
     """
     Calculate area and circumference of a circle
@@ -129,7 +131,7 @@ def get_circle_properties(radius):
         Area: 3.14, Circumference: 6.28
     """
       # TODO: Implement this function
-
+    import math
     if radius < 0:
         raise ValueError("Radius must not be negative")
     area = math.pi * radius ** 2
@@ -186,12 +188,17 @@ def factorial(n):
     - Not considering stack overflow
     """
     # TODO: Implement this function
-    if n < 0:
-        raise ValueError("Factorial not defined for negative numbers")
-    elif n == 0:
-        return 1
-    else:
-        return n * factorial(n - 1)
+    try:
+
+        if n == 0 or n == 1:
+            return 1
+        else:
+            return n * factorial(n - 1)
+    except:
+        if n < 0:
+            raise ValueError("Factorial is not defined for negative numbers")
+        else:
+            raise TypeError("")
   
 
 # Exercise 8: Complex Return Types and Dictionary Handling
@@ -255,12 +262,12 @@ def create_profile(name, age, occupation="Student"):
         if age < 0:
             raise ValueError("Age cannot be negative")
     except (TypeError, ValueError):
-        raise TypeError("Age must be a non-negative integer")
-    return {
-        "name": str(name),
-        "age": age,
-        "occupation": occupation
-    }
+            raise TypeError("name is not str or age is not int")
+        #return {
+            #"name": str(name),
+            #"age": age,
+            #"occupation": 'Student'
+            #}:
 
 # Exercise 10: Complex Logic and Multiple Validation
 def validate_password(password):
@@ -302,30 +309,14 @@ def validate_password(password):
     - Forgetting to validate input type before processing
     """
     # TODO: Implement this function
-
-    if len(password) < 8:
-        return False
-    
-    has_uppercase = False
-    has_lowercase = False
-    has_digit = False
-    has_special = False    
-    special_char = "*", "@", "_", "/", "!", "#"
-
-    for char in password:
-        if char.isupper():
-            has_uppercase = True
-        elif char.islower():
-            has_lowercase = True
-        elif char.isdigit():
-            has_digit = True
-        elif char in special_char:
-            has_special = True
-
-        if has_uppercase and has_lowercase and has_digit and has_special:
+    try:
+        if (len(password) < 8)or password.islower()or password.isupper() or password.isdigit() or password.isalpha():
+            return False
+        else:
             return True
-        
-    return "password is valid"
+            
+    except:
+        raise TypeError("")
 print(validate_password('Abc1234'))
 
         
